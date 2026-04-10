@@ -1,4 +1,4 @@
-/* --- Variables & Reset --- */
+/* base variables and reset */
 :root {
   --text-main: #1f2937;
   --text-muted: #6b7280;
@@ -18,7 +18,7 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--bg-page);
   color: var(--text-main);
   padding: 20px;
@@ -28,14 +28,14 @@ body {
   min-height: 100vh;
 }
 
-/* --- Card Container --- */
+/* card layout */
 .todo-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 20px;
   width: 100%;
-  max-width: 450px; /* Desktop limit */
+  max-width: 450px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
@@ -43,7 +43,6 @@ body {
   transition: opacity 0.3s ease;
 }
 
-/* --- Typography & Header --- */
 .todo-header {
   display: flex;
   justify-content: space-between;
@@ -54,7 +53,7 @@ body {
 .todo-title {
   font-size: 1.25rem;
   line-height: 1.4;
-  transition: color 0.3s, text-decoration 0.3s;
+  transition: all 0.3s ease;
 }
 
 .todo-description {
@@ -63,7 +62,7 @@ body {
   line-height: 1.5;
 }
 
-/* --- Badges --- */
+/* badges */
 .badge {
   font-size: 0.75rem;
   font-weight: 600;
@@ -76,7 +75,7 @@ body {
 .status-pending { background: #fef3c7; color: #92400e; }
 .status-done { background: #d1fae5; color: #065f46; }
 
-/* --- Meta Info (Time) --- */
+/* meta data section */
 .todo-meta {
   display: flex;
   justify-content: space-between;
@@ -98,7 +97,7 @@ body {
 .due-date { color: var(--text-main); font-weight: 500; }
 .time-remaining { color: var(--danger); font-weight: 600; }
 
-/* --- Tags --- */
+/* tag list */
 .todo-tags {
   list-style: none;
   display: flex;
@@ -113,9 +112,10 @@ body {
   font-size: 0.75rem;
   padding: 4px 10px;
   border-radius: 4px;
+  text-transform: lowercase;
 }
 
-/* --- Footer & Actions --- */
+/* actions and footer */
 .todo-footer {
   display: flex;
   justify-content: space-between;
@@ -146,7 +146,7 @@ body {
 }
 
 .btn {
-  background: none;
+  background: transparent;
   border: 1px solid var(--border-color);
   padding: 6px 12px;
   border-radius: var(--radius);
@@ -157,19 +157,24 @@ body {
 }
 
 .btn:hover { background-color: #e5e7eb; }
-.btn-delete:hover { background-color: #fee2e2; color: var(--danger); border-color: var(--danger); }
 
-/* --- Accessibility (Focus States) --- */
+.btn-delete:hover { 
+  background-color: #fee2e2; 
+  color: var(--danger); 
+  border-color: var(--danger); 
+}
+
+/* a11y focus states */
 *:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
-/* --- Completed State Styles --- */
+/* completed states */
 .todo-card.is-completed .todo-title {
   text-decoration: line-through;
   color: var(--text-muted);
 }
 .todo-card.is-completed .time-remaining {
-  color: var(--success); /* Changes to green when done */
+  color: var(--success);
 }

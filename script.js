@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. DOM Elements
   const card = document.querySelector('[data-testid="test-todo-card"]');
   const checkbox = document.querySelector('[data-testid="test-todo-complete-toggle"]');
   const statusBadge = document.querySelector('[data-testid="test-todo-status"]');
@@ -8,16 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const editBtn = document.querySelector('[data-testid="test-todo-edit-button"]');
   const deleteBtn = document.querySelector('[data-testid="test-todo-delete-button"]');
 
-  // Extract the target date from the <time datetime="..."> attribute
+  // grab the date from the time element
   const targetDateStr = dueDateEl.getAttribute('datetime');
   const targetDate = new Date(targetDateStr).getTime();
 
-  // 2. Time Remaining Logic
-  function updateTimeRemaining() {
+  const updateTime = () => {
     const now = Date.now();
     const diff = targetDate - now;
 
-    // If marked as complete, we stop showing urgency
+    // stop showing urgency if it's already done
     if (checkbox.checked) {
       timeRemainingEl.textContent = "Task completed";
       return;
@@ -40,22 +38,20 @@ document.addEventListener("DOMContentLoaded", () => {
         timeRemainingEl.textContent = "Due now!";
       }
     }
-  }
+  };
 
-  // Initial calculation
-  updateTimeRemaining();
+  // run once on load
+  updateTime();
   
-  // Optional: Update every 60 seconds
-  setInterval(updateTimeRemaining, 60000);
+  // refresh every minute
+  setInterval(updateTime, 60000);
 
-  // 3. Checkbox Toggle Logic
+  // handle the checkbox toggle
   checkbox.addEventListener('change', (e) => {
     const isChecked = e.target.checked;
     
-    // Toggle visual strike-through class
     card.classList.toggle('is-completed', isChecked);
     
-    // Update status badge
     if (isChecked) {
       statusBadge.textContent = "Done";
       statusBadge.classList.replace('status-pending', 'status-done');
@@ -64,16 +60,10 @@ document.addEventListener("DOMContentLoaded", () => {
       statusBadge.classList.replace('status-done', 'status-pending');
     }
 
-    // Refresh time text to either show "Completed" or recalculate urgency
-    updateTimeRemaining();
+    updateTime();
   });
 
-  // 4. Dummy Action Buttons
-  editBtn.addEventListener('click', () => {
-    console.log("Edit clicked");
-  });
-
-  deleteBtn.addEventListener('click', () => {
-    alert("Delete clicked");
-  });
+  // dummy click handlers for the buttons
+  editBtn.addEventListener('click', () => console.log("edit clicked"));
+  deleteBtn.addEventListener('click', () => alert("Delete clicked"));
 });
