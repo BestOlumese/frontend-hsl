@@ -9,41 +9,93 @@
 <body>
 
   <article class="todo-card" data-testid="test-todo-card">
-    
-    <header class="todo-header">
-      <h2 class="todo-title" data-testid="test-todo-title">Deploy Stage 0 Updates</h2>
-      <span class="badge priority-high" data-testid="test-todo-priority" aria-label="High Priority">🔴 High</span>
-    </header>
+    <div class="priority-accent" data-testid="test-todo-priority-indicator"></div>
 
-    <p class="todo-description" data-testid="test-todo-description">
-      Ensure all unit tests and automated accessibility checks pass before merging into the main branch. Check WCAG contrast ratios specifically.
-    </p>
+    <div id="view-mode">
+      <header class="todo-header">
+        <h2 class="todo-title" data-testid="test-todo-title">Implement State Management</h2>
+        <span class="badge priority-badge" data-testid="test-todo-priority" aria-label="Priority">High</span>
+      </header>
 
-    <div class="todo-meta">
-      <div class="time-block">
-        <time class="due-date" datetime="2026-04-13T18:00:00" data-testid="test-todo-due-date">Due Apr 13, 2026</time>
-        <span class="time-remaining" data-testid="test-todo-time-remaining" aria-live="polite">Calculating...</span>
+      <div class="description-wrapper">
+        <div id="desc-content" class="todo-description collapsed" data-testid="test-todo-collapsible-section">
+          <p data-testid="test-todo-description">Refactor the vanilla JavaScript to use a central state object. Ensure that the status dropdown, the completion checkbox, and the visual UI all stay perfectly synchronized when any one of them is interacted with. Check all WCAG requirements.</p>
+        </div>
+        <button class="btn-text expand-toggle" data-testid="test-todo-expand-toggle" aria-expanded="false" aria-controls="desc-content">
+          Show more
+        </button>
       </div>
-      <span class="badge status-pending" data-testid="test-todo-status">Pending</span>
+
+      <div class="todo-meta">
+        <div class="time-block">
+          <time class="due-date" datetime="2026-04-15T12:00:00" data-testid="test-todo-due-date">Due Apr 15, 2026</time>
+          <div class="time-status-wrapper">
+            <span class="overdue-badge hidden" data-testid="test-todo-overdue-indicator">Overdue!</span>
+            <span class="time-remaining" data-testid="test-todo-time-remaining" aria-live="polite">Calculating...</span>
+          </div>
+        </div>
+        
+        <div class="status-control-wrapper">
+          <label for="status-select" class="sr-only">Task Status</label>
+          <select id="status-select" class="status-select" data-testid="test-todo-status-control">
+            <option value="Pending">Pending</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Done">Done</option>
+          </select>
+          <span class="badge status-display" data-testid="test-todo-status">Pending</span>
+        </div>
+      </div>
+
+      <ul class="todo-tags" data-testid="test-todo-tags" role="list">
+        <li class="tag" data-testid="test-todo-tag-work">work</li>
+        <li class="tag" data-testid="test-todo-tag-urgent">urgent</li>
+      </ul>
+
+      <footer class="todo-footer">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" id="todo-complete" data-testid="test-todo-complete-toggle">
+          <label for="todo-complete">Mark as done</label>
+        </div>
+        
+        <div class="actions">
+          <button class="btn btn-edit" id="btn-edit" data-testid="test-todo-edit-button">Edit</button>
+          <button class="btn btn-delete" data-testid="test-todo-delete-button">Delete</button>
+        </div>
+      </footer>
     </div>
 
-    <ul class="todo-tags" data-testid="test-todo-tags" role="list">
-      <li class="tag" data-testid="test-todo-tag-work">work</li>
-      <li class="tag" data-testid="test-todo-tag-urgent">urgent</li>
-      <li class="tag">development</li>
-    </ul>
+    <form id="edit-mode" class="edit-form hidden" data-testid="test-todo-edit-form" aria-hidden="true">
+      <div class="form-group">
+        <label for="edit-title">Title</label>
+        <input type="text" id="edit-title" class="form-input" data-testid="test-todo-edit-title-input" required>
+      </div>
 
-    <footer class="todo-footer">
-      <div class="checkbox-wrapper">
-        <input type="checkbox" id="todo-complete" data-testid="test-todo-complete-toggle">
-        <label for="todo-complete">Mark as done</label>
+      <div class="form-group">
+        <label for="edit-desc">Description</label>
+        <textarea id="edit-desc" class="form-input" rows="3" data-testid="test-todo-edit-description-input"></textarea>
       </div>
-      
-      <div class="actions">
-        <button class="btn btn-edit" data-testid="test-todo-edit-button">Edit</button>
-        <button class="btn btn-delete" data-testid="test-todo-delete-button">Delete</button>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="edit-priority">Priority</label>
+          <select id="edit-priority" class="form-input" data-testid="test-todo-edit-priority-select">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="edit-due-date">Due Date</label>
+          <input type="datetime-local" id="edit-due-date" class="form-input" data-testid="test-todo-edit-due-date-input" required>
+        </div>
       </div>
-    </footer>
+
+      <div class="edit-actions">
+        <button type="button" class="btn btn-cancel" id="btn-cancel" data-testid="test-todo-cancel-button">Cancel</button>
+        <button type="submit" class="btn btn-save" id="btn-save" data-testid="test-todo-save-button">Save Changes</button>
+      </div>
+    </form>
 
   </article>
 
